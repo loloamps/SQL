@@ -1,0 +1,27 @@
+--Create a shoe store database
+
+CREATE TABLE shoe_store (id integer primary key, brand TEXT, color TEXT, material TEXT, size INTEGER, price INTEGER, sold INTEGER);
+
+INSERT INTO shoe_store VALUES (1, "Nike", "black", "leather", 10, 100, 5);
+INSERT INTO shoe_store VALUES (2, "Adidas", "white", "polyester", 9.5, 75, 3);
+INSERT INTO shoe_store VALUES (3, "Jordan", "black", "leather", 9.5, 130, 7);
+INSERT INTO shoe_store VALUES (4, "Yeezy", "zebra", "cotton", 10.5, 250, 2);
+INSERT INTO shoe_store VALUES (5, "New Balance", "purple", "leather", 7, 120, 5);
+
+--display the database ordered by price
+
+SELECT* FROM shoe_store ORDER BY price;
+SELECT SUM(sold) FROM shoe_store;
+
+--what is the avg price of shoes? 
+
+SELECT AVG(price) "avg shoe price"
+FROM shoe_store
+where material = 'leather';
+
+--what are the most sold shoes? 
+
+SELECT brand, price, size
+FROM shoe_store
+order by price desc
+limit 3;

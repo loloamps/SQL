@@ -31,16 +31,37 @@ INSERT INTO topmovies(Rank,Title,Studio,Worldwide,Domestic,DomesticPct,Overseas,
 INSERT INTO topmovies(Rank,Title,Studio,Worldwide,Domestic,DomesticPct,Overseas,OverseasPct,Year) VALUES (16,'Jurassic Park','Uni.',1029.20,402.50,0.39,626.70,0.61,1993);
 INSERT INTO topmovies(Rank,Title,Studio,Worldwide,Domestic,DomesticPct,Overseas,OverseasPct,Year) VALUES (17,'Star Wars: Episode I - The Phantom Menace','Fox',1027.00,474.50,0.46,552.50,0.54,1999);
 
-SELECT MAX(rank), MAX(year) FROM topmovies; 
-SELECT MIN(rank), MIN(year) FROM topmovies;
-SELECT AVG(rank), AVG(year) FROM topmovies;
-SELECT title FROM topmovies WHERE year > 2007 AND rank < 10;
-SELECT COUNT (*) FROM topmovies WHERE studio = 'WB';
+
+--Display the databade by Average, Maximum & Minimum ranks & years 
+
+SELECT MAX(rank), MAX(year) 
+FROM topmovies; 
+SELECT MIN(rank), MIN(year) 
+FROM topmovies;
+SELECT AVG(rank), AVG(year) 
+FROM topmovies;
+
+--What were the top movies from 2007 & newer?
+
+SELECT title 
+FROM topmovies 
+WHERE year > 2007 AND rank < 10;
+
+--How many movies from the database were produced by the studio WB?
+
+SELECT COUNT (*) 
+FROM topmovies 
+WHERE studio = 'WB';
+
+--Display the movie titles with an avg rank of less than 10 in a new column 
+
 SELECT title, AVG(rank) AS avg_rank FROM topmovies
     GROUP BY title
     HAVING avg_rank < 10
     ORDER BY avg_rank;
     
+--Created & grouped movies by rank into 3 different categories
+
 SELECT title, rank, 
     CASE 
         WHEN rank <= 5 THEN "my top movies"
@@ -48,7 +69,13 @@ SELECT title, rank,
         WHEN rank >= 10 THEN "bad movies"
     END as "top_movielist"
 FROM topmovies;
+
+--How many domestic movies from the year 2007 & newer were produced by studios Fox or WB?
+
 SELECT COUNT(*) FROM topmovies WHERE year >= 2007 AND studio = "Fox" OR studio = "WB" AND domestic;
+
+--Display the domestic movies from the year 2007 & newer that were produced by studios Fox or WB?
+
 SELECT title FROM topmovies WHERE year >= 2007 AND studio = "Fox" OR studio = "WB" AND domestic;
 
 

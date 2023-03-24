@@ -1,0 +1,73 @@
+---Create a friends & and their hobbies at summer camp database
+
+CREATE TABLE persons (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT,
+    age INTEGER);
+    
+INSERT INTO persons (fullname, age) VALUES ("Tom Cruise", "12");
+INSERT INTO persons (fullname, age) VALUES ("Whitney Houston", "15");
+INSERT INTO persons (fullname, age) VALUES ("Rihanna", "14");
+INSERT INTO persons (fullname, age) VALUES ("Beyonce", "11");
+INSERT INTO persons (fullname, age) VALUES ("Drake", "8");
+
+CREATE table hobbies (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person_id INTEGER,
+    name TEXT);
+    
+INSERT INTO hobbies (person_id, name) VALUES (1, "reading");
+INSERT INTO hobbies (person_id, name) VALUES (1, "hooping");
+INSERT INTO hobbies (person_id, name) VALUES (2, "dancing");
+INSERT INTO hobbies (person_id, name) VALUES (2, "soccer");
+INSERT INTO hobbies (person_id, name) VALUES (3, "skating");
+INSERT INTO hobbies (person_id, name) VALUES (3, "rowing");
+INSERT INTO hobbies (person_id, name) VALUES (3, "eating");
+INSERT INTO hobbies (person_id, name) VALUES (4, "watching tv");
+INSERT INTO hobbies (person_id, name) VALUES (4, "going to movies");
+
+CREATE table friends (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person1_id INTEGER,
+    person2_id INTEGER);
+
+INSERT INTO friends (person1_id, person2_id)
+    VALUES (1, 4);
+INSERT INTO friends (person1_id, person2_id)
+    VALUES (2, 3);
+    
+    
+---Display & joined data from 2 tables to get the campers's name & their hobbies
+    
+SELECT persons.fullname AS name, hobbies.name AS hobbies FROM persons
+    JOIN hobbies
+    ON persons.id = hobbies.person_id;
+    
+---Display & joined data from 3 tables to get a list of campers & their bestfriends
+    
+SELECT a.fullname, b.fullname AS friends FROM friends
+    JOIN persons a
+    ON friends.person1_id = a.id
+    JOIN persons b
+    ON friends.person2_id = b.id;
+    
+---Display all campers from database and their hobbies if any
+    
+SELECT persons.fullname, persons.age, hobbies.name AS hobbies
+    FROM persons
+    LEFT OUTER JOIN hobbies
+    ON persons.id = hobbies.person_id;
+    
+---Display only unique combinations of values for the specified columns and group them by age category
+
+SELECT DISTINCT a.fullname AS "full name",
+    CASE 
+        WHEN a.age <= 10 THEN "young child"
+        WHEN a.age >= 11 AND a.age < 13 THEN "preteen"
+        WHEN a.age >= 13 THEN "teenager"
+    END AS "Age Group"
+FROM hobbies
+    JOIN persons a
+    ON hobbies.person_id = a.id
+    JOIN persons b
+    ON hobbies.person_id = b.id;

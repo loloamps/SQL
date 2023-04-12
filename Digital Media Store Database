@@ -1,4 +1,6 @@
-*** In this SQL, I'm querying a database with 11 tables in it, which represents a digital media store 
+*** In this SQL, I'm querying a database with multiple tables called chinook.
+*** This dataset represents a digital media store and includes tables for artists, albums, media tracks, invoices, and employees & customers.
+
 -- Show Customers (their full names, customer ID, and country) who are not in the US
 
 SELECT FirstName, LastName, Customerid, country
